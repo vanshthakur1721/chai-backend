@@ -1,0 +1,16 @@
+{
+  "name": "chaiorbackend",
+  "version": "1.0.0",
+  "description": "Backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "javaScript",
+    "backend",
+    "chai"
+  ],
+  "author": "Vansh Thakur",
+  "license": "ISC"
+}
