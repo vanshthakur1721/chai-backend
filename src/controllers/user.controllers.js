@@ -1,5 +1,5 @@
 import {asynchandler} from "../utils/asynchandler.js"
-import ApiError from "../utils/ApiError.js"
+import {ApiError} from "../utils/ApiError.js"
 import {User} from "../models/user.model.js"
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
@@ -31,17 +31,22 @@ const registerUser = asynchandler(async(req,res)=>{
 
 
    //3
-   const existedUser = User.findOne({
+   const existedUser =  await User.findOne({
       $or :[{username,email}]
    })
    if(existedUser){
       throw new ApiError(409,"User with these email or username already existed")
    }
 
-
+ console.log(req.files)
    //4
    const avtarLocalpath = req.files?.avatar[0]?.path
-   const coverImageLocalpath = req.files?.coverImage[0]?.path
+ 
+   let coverImageLocalpath 
+   if( req.files && Array.isArray(req.files.coverImage) && req.files.coverImage){
+       coverImageLocalpath = req.files?.coverImage[0]?.path
+   }
+
    if(!avtarLocalpath){
       throw new ApiError(400,"Avtar file is required")
    }
@@ -61,7 +66,7 @@ const registerUser = asynchandler(async(req,res)=>{
       coverImage:coverImage.url||"",
       email,
       password,
-      username:username.toLowerCase(),
+      username: username.toLowerCase()
    })
 
    //7
