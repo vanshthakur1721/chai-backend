@@ -27,3 +27,7 @@ export const upload = multer({
     storage, 
  
 })
+// export const upload = multer({ storage }).fields([
+//   { name: "thumbnail", maxCount: 1 },
+//   { name: "Video", maxCount: 1 },
+// ]);
